@@ -2,7 +2,7 @@
 
 # Get list of all backnet entries
 - set_fact:
-    all_backnets="{{ all_backnets | default([]) }} + ['{{ hostvars[item].backnet_addr }}']"
+    all_backnets="{{ all_backnets | default([]) }} + ['{{ hostvars[item].backnet_addr | default() }}']"
   with_items: "{{ groups['all'] | default([]) }}"
 - set_fact: all_backnets_csv="{{ all_backnets | default([]) | join(',') }}"
 
