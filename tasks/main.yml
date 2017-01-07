@@ -1,0 +1,17 @@
+---
+
+# Get list of all backnet entries
+- set_fact:
+    all_backnets="{{ all_backnets | default([]) }} + ['{{ hostvars[item].backnet_addr | default() }}']"
+  with_items: "{{ groups['all'] | default([]) }}"
+- set_fact: all_backnets_csv="{{ all_backnets | default([]) | join(',') }}"
+
+# Sysctl - IP Forward
+- name: Update Sysctl (net.ipv4.ip_forward)
+  sysctl:
+    name="net.ipv4.ip_forward"
+    value="1"
+    state="present"
+    sysctl_set="yes"
+    ignoreerrors="yes"
+    reload="yes"
