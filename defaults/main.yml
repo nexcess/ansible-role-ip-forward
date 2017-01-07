@@ -1,0 +1,5 @@
+---
+
+firewall_v4_group_rules:
+  901 setup IP masq:
+    - -A POSTROUTING -t nat -s {{ all_backnets_csv }} -j MASQUERADE
